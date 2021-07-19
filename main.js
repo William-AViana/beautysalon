@@ -15,16 +15,44 @@ for (const link of links) {
     })
 }
 
+const header = document.querySelector('#header')
+const navHeight = header.offsetHeight
 function changeHeaderWhenScroll() {
-    const header = document.querySelector('#header')
-    const navHeight = header.offsetHeight
 
     if (window.scrollY >= navHeight) {
         header.classList.add('scroll')
+
     } else {
         header.classList.remove('scroll')
     }
 }
+
+// scroll for sections
+
+const menuItems = document.querySelectorAll('.menu a[href^="#"]')
+
+menuItems.forEach(item => {
+    item.addEventListener('click', scrollToAddOnClick)
+})
+
+function scrollToAddOnClick(event) {
+    event.preventDefault();
+    const element = event.target
+    const id = element.getAttribute('href')
+    const to = document.querySelector(id).offsetTop
+
+    if (id === '#home') {
+        window.scroll({
+            top: to - 72,
+        })
+    } else {
+        window.scroll({
+            top: to,
+        })
+    }
+}
+
+// button back-to-top
 
 // Testimonials carosel slider swiper
 const swiper = new Swiper('.swiper-container', {
@@ -34,13 +62,19 @@ const swiper = new Swiper('.swiper-container', {
     },
     mousewheel: true,
     keyboard: true,
+    breakpoints: {
+        767: {
+            slidesPerView: 2,
+            setWrapperSize: true
+        }
+    }
 });
 
 // Scrollreveal: Mostrar elementos quando der scroll na página
 
 const scrollReveal = ScrollReveal({
     origin: 'top',
-    distance: '30px',
+    distance: '15px',
     duration: 700,
     reset: true
 })
@@ -56,8 +90,8 @@ scrollReveal.reveal(
 )
 
 /* buttom back to top */
+const backToTopButton = document.querySelector('.back-to-top')
 function backToTop() {
-    const backToTopButton = document.querySelector('.back-to-top')
     if (window.scrollY >= 560) {
         backToTopButton.classList.add('show')
     } else {
@@ -65,8 +99,34 @@ function backToTop() {
     }
 }
 
+// menu ativo conforme seção
+const sections = document.querySelectorAll('section[id]')
+function activateMenuAtCurrentSection() {
+
+    const checkpoint = window.pageYOffset + (window.innerHeight / 8) * 4
+
+    for (const section of sections) {
+        const sectionTop = section.offsetTop
+        const sectionHeight = section.offsetHeight
+        const sectionId = section.getAttribute('id')
+
+        const checkpointStart = checkpoint >= sectionTop
+        const checkpointEnd = checkpoint <= sectionTop + sectionHeight
+
+        if (checkpointStart && checkpointEnd) {
+            document
+                .querySelector('nav ul li a[href*=' + sectionId + ']')
+                .classList.add('active')
+        } else {
+            document
+                .querySelector('nav ul li a[href*=' + sectionId + ']')
+                .classList.remove('active')
+        }
+    }
+}
 /* When scroll */
 window.addEventListener('scroll', function () {
     changeHeaderWhenScroll()
     backToTop()
+    activateMenuAtCurrentSection()
 })
