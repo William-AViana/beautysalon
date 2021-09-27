@@ -14,9 +14,9 @@
     <img src="https://img.shields.io/badge/licence-MIT-blue"></img>
 </p>
 
-<div align="center">
+<!-- <div align="center">
   <img src="./.github/preview.png" alt="Exemplo da interface no desktop" width="100%">  
-</div>
+</div> -->
 
 <h2 id="tecnologias">Tecnologias</h2>
 
@@ -34,6 +34,6 @@
 
 <p>Você pode vizualizar o layout do projeto através <a href="https://beautysalon-william-programador.netlify.app/">desse link</a>
 
-<h2 id="licença">Licença</h2>
+<!-- <h2 id="licença">Licença</h2> -->
 
 <!-- <p>Esse projeto está sob a licença MIT. Veja o arquivo <a href="https://github.com/William-AViana/dev.finances/blob/main/LICENSE">LICENSE</a> para mais detalhes.</p> -->
